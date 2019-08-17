@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Katalog Film</string>
+    <string name="catalog">Katalog</string>
+    <string name="japanese">Bahasa Jepang</string>
+    <string name="language_setting">Pengaturan Bahasa</string>
+    <string name="movies">Film</string>
+    <string name="original_title">Judul Asli</string>
+    <string name="tv_shows">Acara TV</string>
+    <string name="undefined_language">Bahasa tidak terdefinisi</string>
+    <string name="status">Status</string>
+    <string name="creator">Pencipta</string>
+    <string name="date_format">%1$td %1$tB %1$tY</string>
+    <string name="error_fetching_movie">Terjadi kesalahan pada saat mengambil data film</string>
+    <string name="error_fetching_movies">Terjadi kesalahan pada saat mengambil data film</string>
+    <string name="original_language">Bahasa Asli</string>
+    <string name="overview">Ikhtisiar</string>
+    <string name="production_company">Perusahaan Produksi</string>
+    <string name="release_date">Tanggal Rilis</string>
+    <string name="runtime">%1$d jam %2$d menit</string>
+    <string name="visit_home_page">Kunjungi Halaman Web</string>
+    <string name="add_to_favorite">Tambahkan ke Favorit</string>
+    <string name="fav">Favorit</string>
+    <string name="favorite_movie">Film Favorit</string>
+    <string name="favorite_tv_show">Acara TV Favorit</string>
+    <string name="home">Beranda</string>
+    <string name="success_add_favorite">Berhasil menambahkan ke favorit</string>
+    <string name="success_remove_favorite">Berhasil menghapus dari favorit</string>
+</resources>

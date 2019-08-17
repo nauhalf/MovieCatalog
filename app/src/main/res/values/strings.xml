@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">Movie Catalog</string>
+    <string name="language_setting">Language Setting</string>
+    <string name="tv_shows">TV Shows</string>
+    <string name="movies">Movies</string>
+    <string name="catalog">Catalog</string>
+    <string name="japanese">Japanese</string>
+    <string name="original_title">Original Title</string>
+    <string name="undefined_language">Undefined Language</string>
+    <string name="status">Status</string>
+    <string name="error_fetching_movies">There is an error occurred during fetching movies</string>
+    <string name="error_fetching_movie">There is an error occurred during fetching movie</string>
+    <string name="overview">Overview</string>
+    <string name="release_date">Release Date</string>
+    <string name="original_language">Original Language</string>
+    <string name="year" translatable="false">(%1$tY)</string>
+    <string name="date_format">%1$tB %1$td, %1$tY</string>
+    <string name="runtime">%1$d h %2$d m</string>
+    <string name="production_company">Production Company</string>
+    <string name="creator">Creator</string>
+    <string name="visit_home_page">Visit Home Page</string>
+    <string name="home">Home</string>
+    <string name="fav">Favorite</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="add_to_favorite">Add to Favorite</string>
+    <string name="success_add_favorite">Successfully removed from favorite</string>
+    <string name="success_remove_favorite">Successfully added to favorite</string>
+    <string name="favorite_tv_show">Favorite TV Show</string>
+    <string name="favorite_movie">Favorite Movie</string>
+    <string name="error_search_keyword_empty">Keyword must not be empty</string>
+    <string name="search_film">Search Film</string>
+    <string name="choose_type">Choose film type</string>
+    <string name="empty_search">We couldn\'t find anything for </string>
+
+    <string-array name="search_type">
+        <item>@string/movies</item>
+        <item>@string/tv_shows</item>
+    </string-array>
+</resources>

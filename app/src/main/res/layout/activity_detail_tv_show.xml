@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="detailTvShowViewModel"
+            type="com.dicoding.naufal.moviecatalogue.ui.detail.tv.DetailTvShowViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.detail.tv.DetailTvShowActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:id="@+id/collapse_toolbar_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:contentScrim="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:titleEnabled="false">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="375dp"
+                    android:background="@android:color/white"
+                    android:clipToPadding="false"
+                    app:layout_collapseMode="none">
+
+                    <FrameLayout
+                        android:id="@+id/frame_img_backdrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="280dp"
+                        android:foreground="@color/colorPrimaryDarkAlpha"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/img_backdrop"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorAccent"
+                            android:scaleType="fitCenter" />
+
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/txt_homepage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/default_padding_margin"
+                        android:background="?selectableItemBackground"
+                        android:clickable="true"
+                        android:drawableEnd="@drawable/ic_home_white_24dp"
+                        android:focusable="true"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:gravity="center_vertical"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="@dimen/default_padding_margin"
+                        android:text="@string/visit_home_page"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/text_homepage_detail"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/frame_img_backdrop"
+                        app:layout_constraintRight_toRightOf="@id/frame_img_backdrop" />
+
+
+                    <ProgressBar
+                        android:id="@+id/progress_backdrop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/AppTheme.WhiteAccent"
+                        app:layout_constraintBottom_toBottomOf="@id/frame_img_backdrop"
+                        app:layout_constraintLeft_toLeftOf="@id/frame_img_backdrop"
+                        app:layout_constraintRight_toRightOf="@id/frame_img_backdrop"
+                        app:layout_constraintTop_toTopOf="@id/frame_img_backdrop" />
+
+                    <ImageView
+                        android:id="@+id/img_poster"
+                        android:layout_width="150dp"
+                        android:layout_height="200dp"
+                        android:layout_marginStart="@dimen/default_padding_margin"
+                        android:layout_marginTop="155dp"
+                        android:background="@drawable/image_poster_background"
+                        app:clipToOutline="@{true}"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_poster"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:theme="@style/AppTheme.WhiteAccent"
+                        app:layout_constraintBottom_toBottomOf="@id/img_poster"
+                        app:layout_constraintLeft_toLeftOf="@id/img_poster"
+                        app:layout_constraintRight_toRightOf="@id/img_poster"
+                        app:layout_constraintTop_toTopOf="@id/img_poster" />
+
+                    <TextView
+                        android:id="@+id/txt_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/default_padding_margin"
+                        android:fontFamily="@font/nunito_bold"
+                        android:maxLines="2"
+                        android:paddingStart="@dimen/default_padding_margin"
+                        android:paddingEnd="@dimen/default_padding_margin"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/txt_title_detail"
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toTopOf="@id/img_poster"
+                        app:layout_constraintRight_toRightOf="parent"
+                        tools:text="Spiderman Far From Home" />
+
+
+                    <TextView
+                        android:id="@+id/txt_year"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/default_padding_margin"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:maxLines="1"
+                        android:paddingStart="0dp"
+                        android:paddingEnd="@dimen/default_padding_margin"
+                        android:textAlignment="viewEnd"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/txt_title_detail"
+                        android:textStyle="bold"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_title"
+                        tools:text="(2018)" />
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycler_genres"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginBottom="12dp"
+                        android:clipToPadding="false"
+                        android:orientation="horizontal"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        app:layout_constraintLeft_toRightOf="@id/img_poster"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/txt_rate"
+                        tools:itemCount="1"
+                        tools:listitem="@layout/item_genre"
+                        tools:orientation="horizontal" />
+
+                    <TextView
+                        android:id="@+id/txt_rate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_padding_margin"
+                        android:layout_marginTop="5dp"
+                        android:drawableEnd="@drawable/ic_star_yellow_24dp"
+                        android:fontFamily="@font/nunito_semibold"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_rate_detail"
+                        app:layout_constraintLeft_toRightOf="@id/img_poster"
+                        app:layout_constraintTop_toBottomOf="@id/frame_img_backdrop"
+                        tools:text="7.9" />
+
+                    <TextView
+                        android:id="@+id/txt_runtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/default_padding_margin"
+                        android:fontFamily="@font/nunito"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_runtime_detail"
+                        app:layout_constraintBottom_toBottomOf="@id/txt_rate"
+                        app:layout_constraintLeft_toRightOf="@id/txt_rate"
+                        app:layout_constraintTop_toTopOf="@id/txt_rate"
+                        tools:text="1h 12m" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?actionBarSize"
+                    android:fitsSystemWindows="true"
+                    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                    app:layout_collapseMode="pin"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollview_detail_movie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/default_padding_margin"
+                android:paddingBottom="@dimen/default_padding_margin">
+
+                <TextView
+                    android:id="@+id/txt_overview_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="@string/overview"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_overview"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginEnd="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_overview_title"
+                    tools:text="Every year the citizens of Fura City celebrate a Wind Festival. Where people live together with the wind. Long Ago, on the final day of the festival the Legendary Pokemon Lugia and bestow the blessings of the wind upon the people. This Film Focuses on Everyone's Story. from Lisa, a high school girl who is just starting out as a Pokemon trainer, to Karachi, a guy who can't stop lying to Torito, a researcher who lacks confidence in himself, to Hisui, an old lady who hates touching Pokemon, and Rarugo, a mysterious young girl who watches over the forest by herself." />
+
+                <TextView
+                    android:id="@+id/txt_creator_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginTop="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito_bold"
+                    android:visibility="gone"
+                    android:text="@string/creator"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_overview" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_creator"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/half_padding_margin"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingStart="@dimen/default_padding_margin"
+                    android:paddingEnd="@dimen/default_padding_margin"
+                    app:layout_constraintTop_toBottomOf="@id/txt_creator_title"
+                    tools:itemCount="2" />
+
+
+                <TextView
+                    android:id="@+id/txt_production_company_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginTop="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="@string/production_company"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_creator" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_production_companies"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/half_padding_margin"
+                    android:clipToPadding="false"
+                    android:nestedScrollingEnabled="false"
+                    android:paddingStart="@dimen/default_padding_margin"
+                    android:paddingEnd="@dimen/default_padding_margin"
+                    app:layout_constraintTop_toBottomOf="@id/txt_production_company_title"
+                    tools:itemCount="2" />
+
+                <TextView
+                    android:id="@+id/txt_release_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginTop="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="@string/release_date"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/recycler_production_companies" />
+
+                <TextView
+                    android:id="@+id/txt_release"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginEnd="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_release_title"
+                    tools:text="2018-12-13" />
+
+                <TextView
+                    android:id="@+id/txt_language_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginTop="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="@string/original_language"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_release" />
+
+                <TextView
+                    android:id="@+id/txt_language"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginEnd="@dimen/default_padding_margin"
+                    android:drawablePadding="@dimen/half_padding_margin"
+                    android:fontFamily="@font/nunito"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_language_title"
+                    tools:text="Japan" />
+
+                <TextView
+                    android:id="@+id/txt_original_title_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginTop="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="@string/original_title"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_language" />
+
+                <TextView
+                    android:id="@+id/txt_original_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginEnd="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    android:textStyle="italic"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_original_title_title"
+                    tools:text="劇場版ポケットモンスター みんなの物語" />
+
+                <TextView
+                    android:id="@+id/txt_status_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginTop="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito_bold"
+                    android:text="@string/status"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_original_title" />
+
+                <TextView
+                    android:id="@+id/txt_status"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/default_padding_margin"
+                    android:layout_marginEnd="@dimen/default_padding_margin"
+                    android:fontFamily="@font/nunito"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/txt_status_title"
+                    tools:text="Ended" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <include
+            android:id="@+id/layout_loading"
+            layout="@layout/template_loading"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{safeUnbox(detailTvShowViewModel.isLoading()) ? View.VISIBLE : View.GONE}"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
