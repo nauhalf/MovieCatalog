@@ -1,11 +1,11 @@
-package com.dicoding.naufal.moviecatalogue.data.local
+package com.dicoding.naufal.moviecatalogue.data.local.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.dicoding.naufal.moviecatalogue.data.local.favorite.FavoriteFilm
-import com.dicoding.naufal.moviecatalogue.data.local.favorite.FavoriteFilmDao
+import com.dicoding.naufal.moviecatalogue.data.local.db.favorite.FavoriteFilm
+import com.dicoding.naufal.moviecatalogue.data.local.db.favorite.FavoriteFilmDao
 
 @Database(entities = [FavoriteFilm::class], version = 1, exportSchema = true)
 abstract class MovieCatalogDatabase() : RoomDatabase() {

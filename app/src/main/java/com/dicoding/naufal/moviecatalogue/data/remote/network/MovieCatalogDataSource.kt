@@ -1,6 +1,6 @@
 package com.dicoding.naufal.moviecatalogue.data.remote.network
 
-import com.dicoding.naufal.moviecatalogue.data.local.MovieCatalogDatabase
+import com.dicoding.naufal.moviecatalogue.data.local.db.MovieCatalogDatabase
 import com.dicoding.naufal.moviecatalogue.model.Film
 import com.dicoding.naufal.moviecatalogue.model.Films
 import com.dicoding.naufal.moviecatalogue.model.Movie
@@ -90,6 +90,44 @@ class MovieCatalogDataSource constructor(private val api: MovieCatalogApi, val d
                 f.originalLanguage == "ja"
             }
             Result.Success(list!!)
+        } else {
+            Result.Error(IOException())
+        }
+    }
+
+    suspend fun fetchReleaseMovie(date: String) = safeApiCall {
+        getReleaseMovie(date)
+    }
+
+    private suspend fun getReleaseMovie(date: String): Result<List<Film>> {
+        val response = api.getReleaseMovieAsync(date, date).await()
+        return if (response.isSuccessful) {
+            val list = mutableListOf<Film>()
+
+            response.body()?.film?.let {
+                list.addAll(it)
+            }
+
+            Result.Success(list)
+        } else {
+            Result.Error(IOException())
+        }
+    }
+
+    suspend fun fetchReleaseTv(date: String) = safeApiCall {
+        getReleaseTv(date)
+    }
+
+    private suspend fun getReleaseTv(date: String): Result<List<Film>> {
+        val response = api.getReleaseTvAsync(date, date).await()
+        return if (response.isSuccessful) {
+            val list = mutableListOf<Film>()
+
+            response.body()?.film?.let {
+                list.addAll(it)
+            }
+
+            Result.Success(list)
         } else {
             Result.Error(IOException())
         }

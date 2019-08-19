@@ -26,4 +26,19 @@
     <string name="home">Beranda</string>
     <string name="success_add_favorite">Berhasil menambahkan ke favorit</string>
     <string name="success_remove_favorite">Berhasil menghapus dari favorit</string>
+    <string name="choose_film_type">Pilih jenis film</string>
+    <string name="choose_setting_type">Pilih jenis pengaturan</string>
+    <string name="daily_reminder">Pengingat Harian</string>
+    <string name="daily_reminder_message">"Hey, kamu belum membuka aplikasi Katalog Film hari ini. Hey, You haven't opened the Movie Catalog today. "</string>
+    <string name="title_activity_settings">Pengaturan</string>
+    <string name="search_film">Pencarian Film</string>
+    <string name="release_text">Menampilkan notifikasi film yang baru rilis</string>
+    <string name="release_reminder">Notifikasi Rilis</string>
+    <string name="daily_text">Notifikasi pengingat untuk membuka aplikasi Katalog Film setiap jam 7 pagi.</string>
+    <string name="empty_search">"Kami tidak menemukan apapun untuk kata kunci "</string>
+    <string name="notification_setting">Pengaturan Notifikasi</string>
+    <string name="new_movie">Film Baru : %1$s</string>
+    <string name="new_movie_notification">Film Baru</string>
+    <string name="new_tv">Episode Baru Acara Tv : %1$s</string>
+    <string name="new_tv_notification">Episode Baru Acara Tv</string>
 </resources>

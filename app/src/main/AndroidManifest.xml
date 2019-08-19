@@ -1,35 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.dicoding.naufal.moviecatalogue">
+    package="com.dicoding.naufal.moviecatalogue">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-            android:name=".MovieCatalogApplication"
-            android:allowBackup="true"
-            android:icon="@mipmap/ic_launcher"
-            android:label="@string/app_name"
-            android:roundIcon="@mipmap/ic_launcher_round"
-            android:supportsRtl="true"
-            android:theme="@style/AppTheme">
-        <activity android:name=".ui.search.SearchActivity">
-        </activity>
+        android:name=".MovieCatalogApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
         <activity
-                android:name=".ui.detail.tv.DetailTvShowActivity"
-                android:label=""/>
+            android:name=".ui.setting.SettingsActivity"
+            android:label="@string/title_activity_settings"></activity>
+        <activity android:name=".ui.search.SearchActivity" />
         <activity
-                android:name=".ui.detail.movie.DetailMovieActivity"
-                android:label=""/>
+            android:name=".ui.detail.tv.DetailTvShowActivity"
+            android:label="" />
         <activity
-                android:name=".ui.main.MainActivity"
-                android:label="@string/catalog">
+            android:name=".ui.detail.movie.DetailMovieActivity"
+            android:label="" />
+        <activity
+            android:name=".ui.main.MainActivity"
+            android:label="@string/catalog">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver
+            android:name=".notification.daily.DailyReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name=".notification.released.ReleasedReceiver"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

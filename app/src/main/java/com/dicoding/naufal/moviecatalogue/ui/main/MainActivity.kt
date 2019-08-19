@@ -1,7 +1,9 @@
 package com.dicoding.naufal.moviecatalogue.ui.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
@@ -9,20 +11,27 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.dicoding.naufal.moviecatalogue.R
+import com.dicoding.naufal.moviecatalogue.notification.daily.DailyReceiver
+import com.dicoding.naufal.moviecatalogue.notification.released.ReleasedReceiver
 import com.dicoding.naufal.moviecatalogue.ui.main.favorite.FavoriteFragment
 import com.dicoding.naufal.moviecatalogue.ui.main.home.HomeFragment
 import com.dicoding.naufal.moviecatalogue.ui.search.SearchActivity
+import com.dicoding.naufal.moviecatalogue.ui.setting.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.template_toolbar.*
 
 
 class MainActivity : AppCompatActivity() {
 
     private var mCurrentFragment: Fragment? = HomeFragment()
+    private lateinit var mDailyReceiver: DailyReceiver
+    private lateinit var mReleasedReceiver: ReleasedReceiver
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        mDailyReceiver = DailyReceiver()
+        mReleasedReceiver= ReleasedReceiver()
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_main, mCurrentFragment!!)
@@ -38,8 +47,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUp() {
         setSupportActionBar(toolbar)
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        if(pref.getBoolean(getString(R.string.key_daily), true)){
+            mDailyReceiver.setDailyReminder(this)
+        } else {
+            mDailyReceiver.cancelDailyReminder(this)
+        }
 
-
+        if(pref.getBoolean(getString(R.string.key_release), true)){
+            mReleasedReceiver.setReleasedReminder(this)
+        } else {
+            mReleasedReceiver.cancelReleasedReminder(this)
+        }
         bottom_nav_main.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
@@ -58,11 +77,6 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
-        subscribeToLiveData()
-    }
-
-    private fun subscribeToLiveData() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -78,15 +92,27 @@ class MainActivity : AppCompatActivity() {
                                 startActivity(SearchActivity.newIntent(this, 2))
                             }
                         }
-                    }.setTitle(getString(R.string.choose_type))
+                    }.setTitle(getString(R.string.choose_film_type))
                     .show()
 
                 true
             }
 
             R.id.menu_setting -> {
-                val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-                startActivity(intent)
+
+                AlertDialog.Builder(this)
+                    .setItems(resources.getStringArray(R.array.setting_type)) { _, position ->
+                        when (position) {
+                            0 -> {
+                                val intent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                                startActivity(intent)
+                            }
+                            1 -> {
+                                startActivity(SettingsActivity.newIntent(this))
+                            }
+                        }
+                    }.setTitle(getString(R.string.choose_setting_type))
+                    .show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

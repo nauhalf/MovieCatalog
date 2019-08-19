@@ -1,6 +1,6 @@
 package com.dicoding.naufal.moviecatalogue.di
 
-import com.dicoding.naufal.moviecatalogue.data.local.MovieCatalogDatabase
+import com.dicoding.naufal.moviecatalogue.data.local.db.MovieCatalogDatabase
 import com.dicoding.naufal.moviecatalogue.data.remote.network.MovieCatalogDataSource
 import com.dicoding.naufal.moviecatalogue.data.remote.network.MovieCatalogRetrofitBuilder
 import com.dicoding.naufal.moviecatalogue.ui.detail.movie.DetailMovieActivity
@@ -50,7 +50,7 @@ val appModule = module {
         viewModel { DetailMovieViewModel(get(), get()) }
     }
 
-    scope(named<SearchActivity>()){
+    scope(named<SearchActivity>()) {
         viewModel { SearchViewModel(get(), get()) }
     }
 }

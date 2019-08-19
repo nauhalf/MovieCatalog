@@ -22,6 +22,7 @@ import com.dicoding.naufal.moviecatalogue.ui.detail.tv.DetailTvShowActivity
 import com.dicoding.naufal.moviecatalogue.ui.main.FilmItemDecoration
 import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.android.synthetic.main.template_empty_search.*
+import kotlinx.android.synthetic.main.template_toolbar.*
 import org.koin.androidx.scope.currentScope
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

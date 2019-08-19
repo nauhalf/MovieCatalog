@@ -1,12 +1,10 @@
 package com.dicoding.naufal.moviecatalogue.ui.main.home.movie
 
 import android.app.Application
-import android.service.autofill.Dataset
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.naufal.moviecatalogue.R
 import com.dicoding.naufal.moviecatalogue.base.BaseViewModel
-import com.dicoding.naufal.moviecatalogue.data.local.favorite.FavoriteFilmDao
 import com.dicoding.naufal.moviecatalogue.model.Film
 import com.dicoding.naufal.moviecatalogue.data.remote.network.MovieCatalogDataSource
 import com.dicoding.naufal.moviecatalogue.data.remote.network.Result

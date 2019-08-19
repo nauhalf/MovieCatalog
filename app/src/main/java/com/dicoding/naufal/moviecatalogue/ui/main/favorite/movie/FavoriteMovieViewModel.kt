@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.dicoding.naufal.moviecatalogue.base.BaseViewModel
-import com.dicoding.naufal.moviecatalogue.data.local.favorite.FavoriteFilmDao
 import com.dicoding.naufal.moviecatalogue.model.Film
 import com.dicoding.naufal.moviecatalogue.data.remote.network.MovieCatalogDataSource
 import com.dicoding.naufal.moviecatalogue.data.remote.network.Result

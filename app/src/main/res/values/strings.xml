@@ -28,13 +28,39 @@
     <string name="success_remove_favorite">Successfully added to favorite</string>
     <string name="favorite_tv_show">Favorite TV Show</string>
     <string name="favorite_movie">Favorite Movie</string>
-    <string name="error_search_keyword_empty">Keyword must not be empty</string>
     <string name="search_film">Search Film</string>
-    <string name="choose_type">Choose film type</string>
+    <string name="choose_film_type">Choose film type</string>
+    <string name="choose_setting_type">Choose setting type</string>
     <string name="empty_search">We couldn\'t find anything for </string>
 
     <string-array name="search_type">
         <item>@string/movies</item>
         <item>@string/tv_shows</item>
     </string-array>
+
+
+    <string-array name="setting_type">
+        <item>@string/language_setting</item>
+        <item>@string/notification_setting</item>
+    </string-array>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+
+    <!-- Messages Preferences -->
+
+    <!-- Sync Preferences -->
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="key_daily" translatable="false">daily</string>
+    <string name="release_reminder">Release Notification</string>
+    <string name="key_release" translatable="false">release</string>
+    <string name="daily_text">Notification reminder to open the Movie Catalog application every 07:00 am</string>
+    <string name="release_text">Showing the movie released notification</string>
+    <string name="notification_setting">Notification Setting</string>
+    <string name="daily_reminder_message">Hey, You haven\'t opened the Movie Catalog today.</string>
+    <string name="new_movie_notification">New Movie</string>
+    <string name="new_tv_notification">New Tv Show Episode</string>
+    <string name="new_movie">New Movie : %1$s</string>
+    <string name="new_tv">New Tv Show Episode : %1$s</string>
 </resources>
