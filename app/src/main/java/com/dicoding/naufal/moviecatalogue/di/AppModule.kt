@@ -1,6 +1,7 @@
 package com.dicoding.naufal.moviecatalogue.di
 
 import com.dicoding.naufal.moviecatalogue.data.local.db.MovieCatalogDatabase
+import com.dicoding.naufal.moviecatalogue.data.local.pref.FirstRunPreference
 import com.dicoding.naufal.moviecatalogue.data.remote.network.MovieCatalogDataSource
 import com.dicoding.naufal.moviecatalogue.data.remote.network.MovieCatalogRetrofitBuilder
 import com.dicoding.naufal.moviecatalogue.ui.detail.movie.DetailMovieActivity
@@ -25,7 +26,7 @@ val appModule = module {
     single { MovieCatalogRetrofitBuilder.api() }
     single { MovieCatalogDatabase.getDatabase(get()) }
     single { MovieCatalogDataSource(get(), get()) }
-
+    single {FirstRunPreference(get())}
     scope(named<TvShowFragment>()) {
         viewModel { TvShowViewModel(get(), get()) }
     }

@@ -36,7 +36,13 @@ class DailyReceiver : BroadcastReceiver() {
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
 
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_DAILY_REMINDER, intent, 0)
+        if(System.currentTimeMillis() > calendar.timeInMillis)
+        {
+            //jika jam saat ini sudah melebihi jam settingan pada saat notifikasi pertama kali dibuat maka
+            calendar.add(Calendar.DATE, 1)
+        }
+
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_DAILY_REMINDER, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
@@ -48,7 +54,7 @@ class DailyReceiver : BroadcastReceiver() {
     fun cancelDailyReminder(context: Context?) {
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, DailyReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_DAILY_REMINDER, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, ID_DAILY_REMINDER, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         pendingIntent.cancel()
 
         alarmManager.cancel(pendingIntent)

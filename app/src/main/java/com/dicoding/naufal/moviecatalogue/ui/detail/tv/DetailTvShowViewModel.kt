@@ -34,9 +34,9 @@ class DetailTvShowViewModel(application: Application, dataSource: MovieCatalogDa
         }
     }
 
-    private fun fetchFav(){
+    private fun fetchFav() {
         scope.launch {
-            val isFav: FavoriteFilm? = withContext(Dispatchers.IO){
+            val isFav: FavoriteFilm? = withContext(Dispatchers.IO) {
                 dataSource.database.favFilmDao().getFavTv(tvIdLiveData.value)
             }
 
@@ -71,7 +71,9 @@ class DetailTvShowViewModel(application: Application, dataSource: MovieCatalogDa
                 dataSource.database.favFilmDao().insertFavFilm(
                     FavoriteFilm(
                         filmId = tvIdLiveData.value!!,
-                        filmType = 2
+                        filmType = 2,
+                        filmPosterUrl = tvLiveData.value?.posterPath,
+                        filmTitle = tvLiveData.value?.title
                     )
                 )
             }
@@ -82,7 +84,7 @@ class DetailTvShowViewModel(application: Application, dataSource: MovieCatalogDa
         }
     }
 
-    fun deleteFromFavorite(){
+    fun deleteFromFavorite() {
         scope.launch {
             withContext(Dispatchers.IO) {
                 dataSource.database.favFilmDao().deleteFavTv(tvIdLiveData.value!!)

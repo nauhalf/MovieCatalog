@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Favorite Widget Movie Catalog</string>
+    <string name="empty_text">No Favorite Film</string>
+</resources>

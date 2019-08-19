@@ -1,6 +1,5 @@
 package com.dicoding.naufal.moviecatalogue.ui.main
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
@@ -11,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.dicoding.naufal.moviecatalogue.R
+import com.dicoding.naufal.moviecatalogue.data.local.pref.FirstRunPreference
 import com.dicoding.naufal.moviecatalogue.notification.daily.DailyReceiver
 import com.dicoding.naufal.moviecatalogue.notification.released.ReleasedReceiver
 import com.dicoding.naufal.moviecatalogue.ui.main.favorite.FavoriteFragment
@@ -19,6 +19,7 @@ import com.dicoding.naufal.moviecatalogue.ui.search.SearchActivity
 import com.dicoding.naufal.moviecatalogue.ui.setting.SettingsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.template_toolbar.*
+import org.koin.android.ext.android.inject
 
 
 class MainActivity : AppCompatActivity() {
@@ -26,12 +27,13 @@ class MainActivity : AppCompatActivity() {
     private var mCurrentFragment: Fragment? = HomeFragment()
     private lateinit var mDailyReceiver: DailyReceiver
     private lateinit var mReleasedReceiver: ReleasedReceiver
+    private val mFirstRunPreference: FirstRunPreference by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         mDailyReceiver = DailyReceiver()
-        mReleasedReceiver= ReleasedReceiver()
+        mReleasedReceiver = ReleasedReceiver()
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
                 .replace(R.id.frame_main, mCurrentFragment!!)
@@ -47,18 +49,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun setUp() {
         setSupportActionBar(toolbar)
-        val pref = PreferenceManager.getDefaultSharedPreferences(this)
-        if(pref.getBoolean(getString(R.string.key_daily), true)){
-            mDailyReceiver.setDailyReminder(this)
-        } else {
-            mDailyReceiver.cancelDailyReminder(this)
+        if (mFirstRunPreference.firstRun) {
+            val pref = PreferenceManager.getDefaultSharedPreferences(this)
+            if (pref.getBoolean(getString(R.string.key_daily), true)) {
+                mDailyReceiver.setDailyReminder(this)
+            } else {
+                mDailyReceiver.cancelDailyReminder(this)
+            }
+
+            if (pref.getBoolean(getString(R.string.key_release), true)) {
+                mReleasedReceiver.setReleasedReminder(this)
+            } else {
+                mReleasedReceiver.cancelReleasedReminder(this)
+            }
+
+            mFirstRunPreference.firstRun = false
         }
 
-        if(pref.getBoolean(getString(R.string.key_release), true)){
-            mReleasedReceiver.setReleasedReminder(this)
-        } else {
-            mReleasedReceiver.cancelReleasedReminder(this)
-        }
         bottom_nav_main.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.menu_home -> {
@@ -127,6 +134,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
 
-        supportFragmentManager.putFragment(outState, "FRAGMENT", mCurrentFragment!!);
+        supportFragmentManager.putFragment(outState, "FRAGMENT", mCurrentFragment!!)
     }
 }

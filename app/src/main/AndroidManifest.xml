@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <permission android:name="com.dicoding.naufal.moviecatalogue.READ_DATABASE" android:protectionLevel="normal"/>
+    <permission android:name="com.dicoding.naufal.moviecatalogue.WRITE_DATABASE" android:protectionLevel="normal"/>
+
+
     <application
         android:name=".MovieCatalogApplication"
         android:allowBackup="true"
@@ -15,16 +19,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        
+        <provider
+            android:authorities="com.dicoding.naufal.moviecatalogue.data.local.provider"
+            android:name=".data.local.provider.FavoriteFilmProvider"
+            android:exported="true"
+            android:readPermission="com.dicoding.naufal.moviecatalogue.READ_DATABASE"
+            android:writePermission="com.dicoding.naufal.moviecatalogue.READ_DATABASE"/>
+        
         <activity
             android:name=".ui.setting.SettingsActivity"
-            android:label="@string/title_activity_settings"></activity>
+            android:label="@string/title_activity_settings" />
         <activity android:name=".ui.search.SearchActivity" />
         <activity
             android:name=".ui.detail.tv.DetailTvShowActivity"
-            android:label="" />
+            android:label="" >
+            <intent-filter>
+                <action android:name="com.dicoding.naufal.moviecatalogue.ui.detail.tv.DetailTvShowActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.detail.movie.DetailMovieActivity"
-            android:label="" />
+            android:label="" >
+            <intent-filter>
+                <action android:name="com.dicoding.naufal.moviecatalogue.ui.detail.movie.DetailMovieActivity"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.main.MainActivity"
             android:label="@string/catalog">
@@ -38,11 +60,12 @@
         <receiver
             android:name=".notification.daily.DailyReceiver"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
 
         <receiver android:name=".notification.released.ReleasedReceiver"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="false" />
+        
     </application>
 
 </manifest>

@@ -23,16 +23,7 @@ interface FavoriteFilmDao {
     fun providerGetFavFilm() : Cursor
 
     @Insert
-    fun providerInsertFavFilm(favMovie: FavoriteFilm) : Long
-
-    @Insert
     suspend fun insertFavFilm(favMovie: FavoriteFilm) : Long
-
-    @Query("DELETE FROM ${FavoriteFilm.TABLE_NAME} WHERE ${FavoriteFilm.FILM_ID} = :id AND ${FavoriteFilm.FILM_TYPE} = 2")
-    fun providerDeleteFavTv(id: Int) : Int
-
-    @Query("DELETE FROM ${FavoriteFilm.TABLE_NAME} WHERE ${FavoriteFilm.FILM_ID} = :id AND ${FavoriteFilm.FILM_TYPE} = 1")
-    fun providerDeleteFavMovie(id: Int) : Int
 
     @Query("DELETE FROM ${FavoriteFilm.TABLE_NAME} WHERE ${FavoriteFilm.FILM_ID} = :id AND ${FavoriteFilm.FILM_TYPE} = 2")
     suspend fun deleteFavTv(id: Int)

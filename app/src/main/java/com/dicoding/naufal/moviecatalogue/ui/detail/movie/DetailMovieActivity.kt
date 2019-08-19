@@ -1,5 +1,6 @@
 package com.dicoding.naufal.moviecatalogue.ui.detail.movie
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
@@ -99,6 +100,10 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding, DetailMovie
                     mDetailMovieViewModel.addToFavorite()
                     Toast.makeText(this, getString(R.string.success_remove_favorite), Toast.LENGTH_SHORT).show()
                 }
+                val intent = Intent("UPDATE")
+                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
+                intent.component = ComponentName("com.kurjaka.mobile.favoritewidgetmoviecatalogue", "com.kurjaka.mobile.favoritewidgetmoviecatalogue.ui.widget.FavoriteFilmWidget")
+                sendBroadcast(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -165,7 +170,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding, DetailMovie
 
                         val intentBuilder = CustomTabsIntent.Builder()
                         intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                        intentBuilder.build().launchUrl(this, Uri.parse(it.homepage));
+                        intentBuilder.build().launchUrl(this, Uri.parse(it.homepage))
                     }
                 }
 
@@ -178,8 +183,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding, DetailMovie
                             target: Target<Drawable>?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            progress_poster.visibility = View.GONE;
-                            return false;
+                            progress_poster.visibility = View.GONE
+                            return false
                         }
 
                         override fun onResourceReady(
@@ -189,8 +194,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding, DetailMovie
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            progress_poster.visibility = View.GONE;
-                            return false;
+                            progress_poster.visibility = View.GONE
+                            return false
                         }
                     })
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -206,8 +211,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding, DetailMovie
                             target: Target<Drawable>?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            progress_backdrop.visibility = View.GONE;
-                            return false;
+                            progress_backdrop.visibility = View.GONE
+                            return false
                         }
 
                         override fun onResourceReady(
@@ -217,8 +222,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding, DetailMovie
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            progress_backdrop.visibility = View.GONE;
-                            return false;
+                            progress_backdrop.visibility = View.GONE
+                            return false
                         }
                     })
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)

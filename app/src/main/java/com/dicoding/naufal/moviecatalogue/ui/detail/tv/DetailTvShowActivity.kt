@@ -1,11 +1,11 @@
 package com.dicoding.naufal.moviecatalogue.ui.detail.tv
 
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -74,7 +73,7 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         mDetailTvShowViewModel.getIsFavoriteLiveData().value?.let {
-            if(it){
+            if (it) {
                 mMenuFav?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_24dp)
             } else {
                 mMenuFav?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_24dp)
@@ -99,6 +98,13 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
                     mDetailTvShowViewModel.addToFavorite()
                     Toast.makeText(this, "Successfully added to favorite", Toast.LENGTH_SHORT).show()
                 }
+                val intent = Intent("UPDATE")
+                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
+                intent.component = ComponentName(
+                    "com.kurjaka.mobile.favoritewidgetmoviecatalogue",
+                    "com.kurjaka.mobile.favoritewidgetmoviecatalogue.ui.widget.FavoriteFilmWidget"
+                )
+                sendBroadcast(intent)
                 true
             }
 
@@ -141,7 +147,7 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
     }
 
     private fun subscribeToLiveData() {
-        mDetailTvShowViewModel.setTvId(intent.getIntExtra(TV_ID_EXTRA, 0))
+        mDetailTvShowViewModel.setTvId(intent.getIntExtra(TV_ID, 0))
 
 
         mDetailTvShowViewModel.getTvLiveData().observe(this, Observer {
@@ -179,7 +185,7 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
                     txt_homepage.setOnClickListener { _ ->
                         val intentBuilder = CustomTabsIntent.Builder()
                         intentBuilder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
-                        intentBuilder.build().launchUrl(this, Uri.parse(it.homepage));
+                        intentBuilder.build().launchUrl(this, Uri.parse(it.homepage))
                     }
                 }
 
@@ -193,8 +199,8 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
                             target: Target<Drawable>?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            progress_poster.visibility = View.GONE;
-                            return false;
+                            progress_poster.visibility = View.GONE
+                            return false
                         }
 
                         override fun onResourceReady(
@@ -204,8 +210,8 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            progress_poster.visibility = View.GONE;
-                            return false;
+                            progress_poster.visibility = View.GONE
+                            return false
                         }
                     })
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -221,8 +227,8 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
                             target: Target<Drawable>?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            progress_backdrop.visibility = View.GONE;
-                            return false;
+                            progress_backdrop.visibility = View.GONE
+                            return false
                         }
 
                         override fun onResourceReady(
@@ -232,8 +238,8 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
                             dataSource: DataSource?,
                             isFirstResource: Boolean
                         ): Boolean {
-                            progress_backdrop.visibility = View.GONE;
-                            return false;
+                            progress_backdrop.visibility = View.GONE
+                            return false
                         }
                     })
                     .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
@@ -283,9 +289,9 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
     }
 
     companion object {
-        const val TV_ID_EXTRA = "TV_ID_EXTRA"
+        const val TV_ID = "TV_ID"
         fun newIntent(context: Context, tvId: Int): Intent = Intent(context, DetailTvShowActivity::class.java).apply {
-            putExtra(TV_ID_EXTRA, tvId)
+            putExtra(TV_ID, tvId)
         }
     }
 }

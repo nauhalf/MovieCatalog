@@ -71,7 +71,9 @@ class DetailMovieViewModel(application: Application, dataSource: MovieCatalogDat
                 dataSource.database.favFilmDao().insertFavFilm(
                     FavoriteFilm(
                         filmId = movieIdLiveData.value!!,
-                        filmType = 1
+                        filmType = 1,
+                        filmPosterUrl = movieLiveData.value?.posterPath,
+                        filmTitle = movieLiveData.value?.title
                     )
                 )
             }

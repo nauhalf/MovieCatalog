@@ -13,6 +13,7 @@ import com.dicoding.naufal.moviecatalogue.databinding.FragmentFavoriteMovieBindi
 import com.dicoding.naufal.moviecatalogue.ui.detail.movie.DetailMovieActivity
 import com.dicoding.naufal.moviecatalogue.ui.main.FilmAdapter
 import com.dicoding.naufal.moviecatalogue.ui.main.FilmItemDecoration
+import com.dicoding.naufal.moviecatalogue.ui.main.favorite.FavoriteFilmAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_movie.*
 import org.koin.androidx.scope.currentScope
@@ -21,7 +22,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding, FavoriteMovieViewModel>() {
 
-    private lateinit var mFilmAdapter: FilmAdapter
+    private lateinit var mFavoriteFilmAdapter: FavoriteFilmAdapter
     private val mFavoriteMovieViewModel: FavoriteMovieViewModel by currentScope.viewModel(this)
     private lateinit var mFragmentMovieBinding: FragmentFavoriteMovieBinding
 
@@ -42,12 +43,12 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding, Favorit
     }
 
     private fun setUp() {
-        mFilmAdapter = FilmAdapter(mutableListOf()) {
-            startActivity(DetailMovieActivity.newIntent(requireContext(), it.id))
+        mFavoriteFilmAdapter = FavoriteFilmAdapter(mutableListOf()) {
+            startActivity(DetailMovieActivity.newIntent(requireContext(), it.filmId))
         }
 
         recycler_movie.apply {
-            adapter = mFilmAdapter
+            adapter = mFavoriteFilmAdapter
             layoutManager = GridLayoutManager(requireContext(), resources.getInteger(R.integer.discovery_columns))
             addItemDecoration(
                 FilmItemDecoration(resources.configuration.orientation, 16)
@@ -59,7 +60,7 @@ class FavoriteMovieFragment : BaseFragment<FragmentFavoriteMovieBinding, Favorit
 
     private fun subscribeToLiveData() {
         mFavoriteMovieViewModel.getMovieLiveData().observe(viewLifecycleOwner, Observer {
-            mFilmAdapter.addFilms(it)
+            mFavoriteFilmAdapter.addFilms(it)
         })
 
         mFavoriteMovieViewModel.getErrorLiveData().observe(viewLifecycleOwner, Observer {

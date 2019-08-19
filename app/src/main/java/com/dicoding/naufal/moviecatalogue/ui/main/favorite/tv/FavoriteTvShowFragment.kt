@@ -3,16 +3,14 @@ package com.dicoding.naufal.moviecatalogue.ui.main.favorite.tv
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.dicoding.naufal.moviecatalogue.BR
 import com.dicoding.naufal.moviecatalogue.R
 import com.dicoding.naufal.moviecatalogue.base.BaseFragment
 import com.dicoding.naufal.moviecatalogue.databinding.FragmentFavoriteTvShowBinding
-import com.dicoding.naufal.moviecatalogue.databinding.FragmentTvShowBinding
 import com.dicoding.naufal.moviecatalogue.ui.detail.tv.DetailTvShowActivity
-import com.dicoding.naufal.moviecatalogue.ui.main.FilmAdapter
 import com.dicoding.naufal.moviecatalogue.ui.main.FilmItemDecoration
+import com.dicoding.naufal.moviecatalogue.ui.main.favorite.FavoriteFilmAdapter
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_tv_show.*
 import org.koin.androidx.scope.currentScope
@@ -20,7 +18,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoriteTvShowFragment : BaseFragment<FragmentFavoriteTvShowBinding, FavoriteTvShowViewModel>() {
 
-    private lateinit var mFilmAdapter: FilmAdapter
+    private lateinit var mFavoriteFilmAdapter: FavoriteFilmAdapter
     private val mTvShowViewModel: FavoriteTvShowViewModel by currentScope.viewModel(this)
     private lateinit var mTvShowBinding: FragmentFavoriteTvShowBinding
 
@@ -42,12 +40,12 @@ class FavoriteTvShowFragment : BaseFragment<FragmentFavoriteTvShowBinding, Favor
     }
 
     private fun setUp() {
-        mFilmAdapter = FilmAdapter(mutableListOf()) {
-            startActivity(DetailTvShowActivity.newIntent(requireContext(), it.id))
+        mFavoriteFilmAdapter = FavoriteFilmAdapter(mutableListOf()) {
+            startActivity(DetailTvShowActivity.newIntent(requireContext(), it.filmId))
         }
 
         recycler_tv.apply {
-            adapter = mFilmAdapter
+            adapter = mFavoriteFilmAdapter
             layoutManager = GridLayoutManager(requireContext(), resources.getInteger(R.integer.discovery_columns))
             addItemDecoration(
                 FilmItemDecoration(resources.configuration.orientation, 16)
@@ -62,7 +60,7 @@ class FavoriteTvShowFragment : BaseFragment<FragmentFavoriteTvShowBinding, Favor
 
         mTvShowViewModel.getTvLiveData().observe(viewLifecycleOwner, Observer {
             if (it != null) {
-                mFilmAdapter.addFilms(it)
+                mFavoriteFilmAdapter.addFilms(it)
             }
         })
 
@@ -71,15 +69,5 @@ class FavoriteTvShowFragment : BaseFragment<FragmentFavoriteTvShowBinding, Favor
                 Snackbar.make(mTvShowBinding.root, getString(it), Snackbar.LENGTH_SHORT).show()
             }
         })
-    }
-
-    companion object {
-        fun newInstance(isFav: Boolean): FavoriteTvShowFragment = FavoriteTvShowFragment().apply {
-            arguments = Bundle().apply {
-                putBoolean(IS_FAV, isFav)
-            }
-        }
-
-        private const val IS_FAV = "IS_FAV"
     }
 }

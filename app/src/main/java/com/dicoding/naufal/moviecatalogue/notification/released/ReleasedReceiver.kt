@@ -10,6 +10,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.media.RingtoneManager
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import com.dicoding.naufal.moviecatalogue.R
@@ -17,7 +18,10 @@ import com.dicoding.naufal.moviecatalogue.data.remote.network.MovieCatalogDataSo
 import com.dicoding.naufal.moviecatalogue.data.remote.network.Result
 import com.dicoding.naufal.moviecatalogue.ui.detail.movie.DetailMovieActivity
 import com.dicoding.naufal.moviecatalogue.ui.detail.tv.DetailTvShowActivity
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.core.KoinComponent
 import org.koin.core.inject
 import java.text.SimpleDateFormat
@@ -31,7 +35,7 @@ class ReleasedReceiver : BroadcastReceiver(), KoinComponent {
     override fun onReceive(context: Context?, intent: Intent?) {
         val s = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
         val curDate = s.format(Date())
-        CoroutineScope(Dispatchers.Main).launch{
+        CoroutineScope(Dispatchers.Main).launch {
             val movieResponse = withContext(Dispatchers.IO) {
                 mDataSource.fetchReleaseMovie(curDate)
             }
@@ -39,18 +43,24 @@ class ReleasedReceiver : BroadcastReceiver(), KoinComponent {
                 mDataSource.fetchReleaseTv(curDate)
             }
 
-            when(movieResponse){
+            when (movieResponse) {
                 is Result.Success -> {
-                    for (f in movieResponse.data){
-                        showReleaseReminder(context, f.id, f.title.toString(), 1, NOTIF_ID)
-                        NOTIF_ID++
+                    for (f in movieResponse.data) {
+                        if (f.releaseDate.equals(curDate)) {
+
+                            Log.i("Notification Movie", "$curDate : $f.title")
+                            showReleaseReminder(context, f.id, f.title.toString(), 1, NOTIF_ID)
+                            NOTIF_ID++
+                        }
                     }
                 }
             }
 
-            when(tvResponse){
+            when (tvResponse) {
                 is Result.Success -> {
-                    for (f in tvResponse.data){
+                    for (f in tvResponse.data) {
+                        //menampilkan tv show yang mempunyai eps baru pada hari ini
+                        Log.i("Notification TV", "$curDate : $f.title")
                         showReleaseReminder(context, f.id, f.title.toString(), 2, NOTIF_ID)
                         NOTIF_ID++
                     }
@@ -64,8 +74,6 @@ class ReleasedReceiver : BroadcastReceiver(), KoinComponent {
     }
 
     fun setReleasedReminder(context: Context?) {
-
-
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, ReleasedReceiver::class.java)
 
@@ -74,7 +82,16 @@ class ReleasedReceiver : BroadcastReceiver(), KoinComponent {
         calendar.set(Calendar.MINUTE, 0)
         calendar.set(Calendar.SECOND, 0)
 
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_RELEASED_REMINDER, intent, 0)
+        if(System.currentTimeMillis() > calendar.timeInMillis)
+        {
+            //jika jam saat ini sudah melebihi jam settingan pada saat notifikasi pertama kali dibuat maka
+            calendar.add(Calendar.DATE, 1)
+        }
+
+
+        val pendingIntent =
+            PendingIntent.getBroadcast(context, ID_RELEASED_REMINDER, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         alarmManager.setInexactRepeating(
             AlarmManager.RTC_WAKEUP,
             calendar.timeInMillis,
@@ -86,7 +103,8 @@ class ReleasedReceiver : BroadcastReceiver(), KoinComponent {
     fun cancelReleasedReminder(context: Context?) {
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, ReleasedReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, ID_RELEASED_REMINDER, intent, 0)
+        val pendingIntent =
+            PendingIntent.getBroadcast(context, ID_RELEASED_REMINDER, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         pendingIntent.cancel()
 
         alarmManager.cancel(pendingIntent)
