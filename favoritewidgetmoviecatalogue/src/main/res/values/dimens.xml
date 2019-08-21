@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_radius">5dp</dimen>
+    <dimen name="backdrop_radius">12dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="text_rate">12sp</dimen>
+    <dimen name="txt_film_name">15sp</dimen>
+    <dimen name="default_padding_margin">16dp</dimen>
+    <dimen name="half_padding_margin">8dp</dimen>
+    <dimen name="text_rate_detail">15sp</dimen>
+
+    <dimen name="text_homepage_detail">13sp</dimen>
+    <dimen name="text_runtime_detail">12sp</dimen>
+    <dimen name="txt_title_detail">18sp</dimen>
+    <dimen name="text_genre">10sp</dimen>
+    <integer name="discovery_columns">2</integer>
+</resources>

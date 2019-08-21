@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 28
 
 
     defaultConfig {
-        applicationId "com.kurjaka.mobile.favoritewidgetmoviecatalogue"
+        applicationId "com.dicoding.naufal.favoritewidgetmoviecatalogue"
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -17,12 +17,19 @@ android {
 
     }
 
+
+
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
+    
     androidExtensions {
         experimental = true
     }
@@ -41,4 +48,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.2.1"
+
+    implementation "androidx.lifecycle:lifecycle-extensions:2.0.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.0.0"
+
+    implementation 'com.google.android.material:material:1.1.0-alpha07'
 }

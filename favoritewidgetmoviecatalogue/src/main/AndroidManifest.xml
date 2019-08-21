@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.kurjaka.mobile.favoritewidgetmoviecatalogue">
+    package="com.dicoding.naufal.favoritewidgetmoviecatalogue">
 
     <uses-permission android:name="com.dicoding.naufal.moviecatalogue.READ_DATABASE"/>
     <uses-permission android:name="com.dicoding.naufal.moviecatalogue.WRITE_DATABASE"/>
@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.main.MainActivity">
+        <activity android:name="com.dicoding.naufal.favoritewidgetmoviecatalogue.ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,10 +21,10 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".ui.widget.FavoriteFilmWidget">
+        <receiver android:name="com.dicoding.naufal.favoritewidgetmoviecatalogue.ui.widget.FavoriteFilmWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="UPDATE"/>
+                <action android:name="WIDGET_UPDATE"/>
             </intent-filter>
 
             <meta-data
@@ -33,8 +33,9 @@
         </receiver>
 
         <service
-            android:name=".ui.widget.FavoriteFilmWidgetService"
+            android:name="com.dicoding.naufal.favoritewidgetmoviecatalogue.ui.widget.FavoriteFilmWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
     </application>
 
 </manifest>

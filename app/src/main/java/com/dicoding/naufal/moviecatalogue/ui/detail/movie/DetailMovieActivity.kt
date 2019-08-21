@@ -13,7 +13,6 @@ import android.widget.Toast
 import androidx.browser.customtabs.CustomTabsIntent
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -74,7 +73,7 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding, DetailMovie
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
 
         mDetailMovieViewModel.getIsFavoriteLiveData().value?.let {
-            if(it){
+            if (it) {
                 mMenuFav?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_24dp)
             } else {
                 mMenuFav?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_24dp)
@@ -100,9 +99,12 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding, DetailMovie
                     mDetailMovieViewModel.addToFavorite()
                     Toast.makeText(this, getString(R.string.success_remove_favorite), Toast.LENGTH_SHORT).show()
                 }
-                val intent = Intent("UPDATE")
+                val intent = Intent("WIDGET_UPDATE")
                 intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
-                intent.component = ComponentName("com.kurjaka.mobile.favoritewidgetmoviecatalogue", "com.kurjaka.mobile.favoritewidgetmoviecatalogue.ui.widget.FavoriteFilmWidget")
+                intent.component = ComponentName(
+                    "com.dicoding.naufal.favoritewidgetmoviecatalogue",
+                    "com.dicoding.naufal.favoritewidgetmoviecatalogue.ui.widget.FavoriteFilmWidget"
+                )
                 sendBroadcast(intent)
                 true
             }
@@ -256,8 +258,8 @@ class DetailMovieActivity : BaseActivity<ActivityDetailMovieBinding, DetailMovie
             }
         })
 
-        mDetailMovieViewModel.getIsFavoriteLiveData().observe(this, Observer{
-            if(it){
+        mDetailMovieViewModel.getIsFavoriteLiveData().observe(this, Observer {
+            if (it) {
                 mMenuFav?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_white_24dp)
             } else {
                 mMenuFav?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.ic_favorite_border_white_24dp)

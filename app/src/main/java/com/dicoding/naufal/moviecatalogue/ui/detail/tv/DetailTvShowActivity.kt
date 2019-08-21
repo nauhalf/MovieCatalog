@@ -98,11 +98,11 @@ class DetailTvShowActivity : BaseActivity<ActivityDetailTvShowBinding, DetailTvS
                     mDetailTvShowViewModel.addToFavorite()
                     Toast.makeText(this, "Successfully added to favorite", Toast.LENGTH_SHORT).show()
                 }
-                val intent = Intent("UPDATE")
+                val intent = Intent("WIDGET_UPDATE")
                 intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
                 intent.component = ComponentName(
-                    "com.kurjaka.mobile.favoritewidgetmoviecatalogue",
-                    "com.kurjaka.mobile.favoritewidgetmoviecatalogue.ui.widget.FavoriteFilmWidget"
+                    "com.dicoding.naufal.favoritewidgetmoviecatalogue",
+                    "com.dicoding.naufal.favoritewidgetmoviecatalogue.ui.widget.FavoriteFilmWidget"
                 )
                 sendBroadcast(intent)
                 true

@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="mainViewModel"
+            type="com.dicoding.naufal.favoritewidgetmoviecatalogue.ui.main.MainViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.main.MainActivity">
+
+        <include layout="@layout/template_toolbar" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:id="@+id/swap_refersh"
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:padding="@dimen/default_padding_margin" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+        <include layout="@layout/template_loading"
+            android:visibility="@{safeUnbox(mainViewModel.isLoading()) ? View.VISIBLE : View.GONE}"
+            tools:visibility="gone"
+            android:id="@+id/layout_loading"/>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
