@@ -1,6 +1,15 @@
 # MovieCatalog
-Dicoding Kelas MADE
+Dicoding Kelas MADE / Belajar Fundamental Aplikasi Android
 
-DICODING KELAS MADE SUBMISSION FINAL
+Dimohon untuk tidak plagiat.
 
-MOHON JANGAN JIPLAK, TAR DIBANNED 
+Build with :
+- Kotlin
+- MVVM Design Pattern
+- Room Persistence
+- Retrofit
+- Coroutine
+- etc
+
+## Demo
+[![Movie Catalog Demo](https://media.giphy.com/media/jGeKbjhBhLNjb9mTFQ/giphy.gif)](https://media2.giphy.com/media/jGeKbjhBhLNjb9mTFQ/giphy.mp4)
