@@ -12,4 +12,4 @@ Build with :
 - etc
 
 ## Demo
-[![Movie Catalog Demo](https://media.giphy.com/media/jGeKbjhBhLNjb9mTFQ/giphy.gif)](https://media2.giphy.com/media/jGeKbjhBhLNjb9mTFQ/giphy.mp4)
+[![Movie Catalog Demo](https://thumbs.gfycat.com/SpeedyChiefLeopard-size_restricted.gif)](https://gfycat.com/speedychiefleopard-android-kotlin)
